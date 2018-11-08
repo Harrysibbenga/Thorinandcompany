@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 
 '''
 runs the server by importing the os through cloud9. 
@@ -11,6 +11,7 @@ imports the Flask object inside the flask module.
 
 
 app = Flask(__name__)
+app.secret_key = "some_secret"
 
 @app.route('/')
 def index():
@@ -38,6 +39,7 @@ def about_member(member_name):
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST': 
+        flash('Thanks {} we have recived your message'.format(request.form["name"]))
         print(request.form)
     
     return render_template('contact.html', page_title='Contact Us')
